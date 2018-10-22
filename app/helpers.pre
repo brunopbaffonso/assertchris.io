@@ -1,0 +1,41 @@
+<?php
+
+namespace App;
+
+use Amp\Coroutine;
+
+use function Pre\Phpx\classMatching;
+use function Pre\Phpx\functionMatching;
+use function Pre\Phpx\Html\propsFrom;
+use function Pre\Phpx\Html\render as renderHtml;
+use function Pre\Plugin\addMacro;
+
+function render($name, $props = null)
+{
+    $namespaces = [
+        "global",
+        "App\\Component",
+    ];
+
+    $ignoreNative = [
+        "link",
+    ];
+
+    $props = propsFrom($props);
+
+    if (!in_array($name, $ignoreNative) && ($function = functionMatching($namespaces, $name))) {
+        return call_user_func($function, $props);
+    }
+
+    if ($class = classMatching($namespaces, $name)) {
+        $instance = new $class($props);
+
+        if (is_callable($instance)) {
+            return $instance($props);
+        }
+
+        return $instance->render();
+    }
+
+    return renderHtml($name, $props);
+}

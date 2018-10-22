@@ -1,0 +1,21 @@
+{
+    "scripts": {
+        "start": "vendor/bin/aerys -d -c loader.php"
+    },
+    "require": {
+        "amphp/aerys": "^0.7.4",
+        "league/commonmark": "^0.18.0",
+        "pre/async": "^0.9.2",
+        "pre/phpx-html": "^0.2.3",
+        "pre/short-closures": "^0.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    }
+}

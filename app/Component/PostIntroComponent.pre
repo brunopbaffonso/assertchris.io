@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Component;
+
+use League\CommonMark\CommonMarkConverter;
+
+use function App\render;
+
+class PostIntroComponent
+{
+    public function __invoke($props)
+    {
+        $converter = new CommonMarkConverter();
+
+        return (
+            <div className={""}>
+                {$converter->convertToHtml($props->markdown)}
+            </div>
+        );
+    }
+}

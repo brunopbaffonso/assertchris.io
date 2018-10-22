@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "build": "tailwind build ./resources/css/app.pcss -c ./tailwind.js -o ./public/app.css"
+    },
+    "devDependencies": {
+        "tailwindcss": "^0.6.6"
+    }
+}

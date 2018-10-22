@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Responder;
+
+use Aerys\Request;
+use Aerys\Response;
+use App\Component\LayoutComponent;
+
+use function App\render;
+
+class TalksResponder
+{
+    public function __invoke(Request $request, Response $response)
+    {
+        $response->end(
+            <LayoutComponent uri={$request->getUri()}>
+                talks
+            </LayoutComponent>
+        );
+    }
+}

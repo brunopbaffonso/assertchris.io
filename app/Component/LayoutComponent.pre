@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Component;
+
+use function App\render;
+
+class LayoutComponent
+{
+    public function __invoke($props)
+    {
+        return (
+            <html lang={"en"}>
+                <head>
+                    <link rel={"stylesheet"} href={"/app.css"} />
+                </head>
+                <body className={"font-serif text-grey-darkest"}>
+                    <div className={"container mx-auto"}>
+                        <NavComponent uri={$props->uri} />
+                        <div className={"m-6"}>
+                            {$props->children}
+                        </div>
+                    </div>
+                </body>
+            </html>
+        );
+    }
+}

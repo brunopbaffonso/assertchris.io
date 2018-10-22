@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Responder;
+
+use Aerys\Request;
+use Aerys\Response;
+use App\Component\LayoutComponent;
+
+use function Amp\File\get;
+use function App\render;
+
+class HomeResponder
+{
+    async private function intro($post)
+    {
+        $content = await get(.."/../../posts/{$post}.md");
+        return explode("---", $content)[0];
+    }
+
+    public function __invoke(Request $request, Response $response)
+    {
+        $content = await $this->intro("2018-10-22-hello-world");
+
+        $response->end(
+            <LayoutComponent uri={$request->getUri()}>
+                <PostIntroComponent markdown={$content} />
+            </LayoutComponent>
+        );
+    }
+}

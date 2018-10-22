@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Component;
+
+use function App\render;
+
+class NavComponent
+{
+    private $props;
+
+    public function __construct($props)
+    {
+        $this->props = $props;
+    }
+
+    public function render()
+    {
+        return (
+            <nav className={"flex items-center justify-start flex-wrap px-3"}>
+                {$this->renderLink("/", "home")}
+                {$this->renderLink("/books", "books")}
+                {$this->renderLink("/talks", "talks")}
+                {$this->renderLink("/projects", "projects")}
+            </nav>
+        );
+    }
+
+    private function renderLink($href, $label)
+    {
+        $isActive = $href === $this->props->uri;
+
+        return (
+            <a
+                className={[
+                    "py-6 px-3",
+                    $isActive ? "text-blue-light" : "text-blue-dark"
+                ]}
+                href={$href}
+            >
+                {$label}
+            </a>
+        );
+    }
+}

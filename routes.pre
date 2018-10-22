@@ -1,0 +1,17 @@
+<?php
+
+use Aerys\Router;
+use Aerys\Request;
+use Aerys\Response;
+
+use App\Responder\HomeResponder;
+use App\Responder\BooksResponder;
+use App\Responder\TalksResponder;
+use App\Responder\ProjectsResponder;
+
+return (Router $router) ~> {
+    $router->route("GET", "/", new HomeResponder);
+    $router->route("GET", "/books", new BooksResponder);
+    $router->route("GET", "/talks", new TalksResponder);
+    $router->route("GET", "/projects", new ProjectsResponder);
+};

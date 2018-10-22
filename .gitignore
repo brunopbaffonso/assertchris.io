@@ -1,0 +1,7 @@
+/app/**/*.php
+/node_modules
+/vendor
+/pre.compilers
+/pre.macros
+/routes.php
+/server.php
