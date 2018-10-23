@@ -8,10 +8,14 @@ use App\Responder\HomeResponder;
 use App\Responder\BooksResponder;
 use App\Responder\TalksResponder;
 use App\Responder\ProjectsResponder;
+use App\Responder\FeedResponder;
+use App\Responder\PostResponder;
 
 return (Router $router) ~> {
     $router->route("GET", "/", new HomeResponder);
     $router->route("GET", "/books", new BooksResponder);
     $router->route("GET", "/talks", new TalksResponder);
     $router->route("GET", "/projects", new ProjectsResponder);
+    $router->route("GET", "/feed", new FeedResponder);
+    $router->route("GET", "/post/{slug}", new PostResponder);
 };

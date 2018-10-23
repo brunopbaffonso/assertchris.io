@@ -8,7 +8,10 @@ class LayoutComponent
 {
     public function __invoke($props)
     {
+        $showLargeHeader = $props->showLargeHeader ?? false;
+
         return (
+            '<!doctype html>'.
             <html lang={"en"}>
                 <head>
                     <meta charset={"utf-8"} />
@@ -16,11 +19,12 @@ class LayoutComponent
                     <meta name={"viewport"} content={"width=device-width, initial-scale=1"} />
                     <link rel={"stylesheet"} href={"/app.css"} />
                 </head>
-                <body className={"font-serif text-grey-darkest"}>
+                <body className={"font-serif text-grey-darkest leading-normal"}>
                     <div className={"container mx-auto w-full md:max-w-lg min-h-screen flex flex-col"}>
-                        <HeaderComponent>
+                        <HeaderComponent showLargeHeader={$showLargeHeader}>
                             <NavComponent uri={$props->uri} />
                         </HeaderComponent>
+                        <hr />
                         <ContentComponent>
                             {$props->children}
                         </ContentComponent>

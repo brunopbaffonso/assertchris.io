@@ -9,7 +9,7 @@ class ContentComponent
     public function __invoke($props)
     {
         return (
-            <div className={"flex flex-grow flex-col mx-6 self-stretch"}>
+            <div className={"flex flex-grow flex-col px-3 md:px-6 self-stretch"}>
                 {$props->children}
             </div>
         );

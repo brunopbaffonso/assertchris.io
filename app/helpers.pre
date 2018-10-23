@@ -3,6 +3,8 @@
 namespace App;
 
 use Amp\Coroutine;
+use Carbon\Carbon;
+use League\CommonMark\CommonMarkConverter;
 
 use function Amp\File\get;
 use function Pre\Phpx\classMatching;
@@ -36,7 +38,7 @@ function render($name, $props = null)
     return renderHtml($name, $props);
 }
 
-async function post($slug)
+async function getPost($slug)
 {
     static $posts;
 
@@ -51,10 +53,41 @@ async function post($slug)
     $content = await get(.."/../posts/{$slug}.md");
     $parts = explode("---", $content);
 
-    $posts[$slug] = {
+    $posts[$slug] = [
         "intro" => $parts[0],
-        "content" => $parts[1],
-    };
+        "introHtml" => getMarkupFromMarkdown($parts[0]),
+        "body" => $parts[1],
+        "bodyHtml" => getMarkupFromMarkdown($parts[1]),
+    ];
 
     return $posts[$slug];
+}
+
+function getMarkupFromMarkdown($markdown)
+{
+    static $converter;
+
+    if (!$converter) {
+        $converter = new CommonMarkConverter();
+    }
+
+    return $converter->convertToHtml($markdown);
+}
+
+async function getRecentPosts()
+{
+    static $posts;
+
+    if (!$posts) {
+        $posts = [
+            [
+                "slug" => "2018-10-22-hello-world",
+                "date" => new Carbon("2018-10-22"),
+                "title" => "Hello world",
+                "content" => await getPost("2018-10-22-hello-world"),
+            ],
+        ];
+    }
+
+    return $posts;
 }

@@ -7,42 +7,29 @@ use Aerys\Response;
 use App\Component\LayoutComponent;
 
 use function App\render;
-use function App\post;
+use function App\getRecentPosts;
 
 class HomeResponder
 {
     public function __invoke(Request $request, Response $response)
     {
-        $posts = await $this->load();
+        $posts = await getRecentPosts();
 
         $response->end(
-            <LayoutComponent uri={$request->getUri()}>
+            <LayoutComponent uri={$request->getUri()} showLargeHeader={true}>
+                <div className={"my-6 text-lg font-semibold"}>
+                    {"Hello. I’m Christopher, and I write the kind of code that would make your CTO uncomfortable. Read about one of my recent experiments!"}
+                </div>
                 {array_map($post ~> $this->renderPost($post), $posts)}
             </LayoutComponent>
         );
     }
 
-    async private function load()
-    {
-        static $posts;
-
-        if (!$posts) {
-            $posts = [
-                {
-                    "slug" => "2018-10-22-hello-world",
-                    "content" => await post("2018-10-22-hello-world"),
-                },
-            ];
-        }
-
-        return $posts;
-    }
-
     private function renderPost($post)
     {
         return (
-            <PostIntroComponent>
-                {$post->content->intro}
+            <PostIntroComponent uri={"/post/{$post["slug"]}"}>
+                {$post["content"]["introHtml"]}
             </PostIntroComponent>
         );
     }

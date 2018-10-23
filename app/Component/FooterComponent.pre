@@ -9,9 +9,10 @@ class FooterComponent
     public function __invoke($props)
     {
         return (
-            <footer className={"flex flex-row items-center justify-center flex-wrap p-3"}>
+            <footer className={"flex flex-row items-center justify-center flex-wrap p-0 md:p-3"}>
                 {$this->renderLink("https://twitter.com/assertchris", "twitter")}
                 {$this->renderLink("https://github.com/assertchris", "github")}
+                {$this->renderLink("/feed", "rss")}
             </footer>
         );
     }

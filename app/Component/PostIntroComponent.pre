@@ -2,26 +2,21 @@
 
 namespace App\Component;
 
-use League\CommonMark\CommonMarkConverter;
-
 use function App\render;
 
 class PostIntroComponent
 {
-    private $props;
-    private $converter;
-
-    public function __construct($props)
-    {
-        $this->props = $props;
-        $this->converter = new CommonMarkConverter();
-    }
-
-    public function render()
+    public function __invoke($props)
     {
         return (
-            <div className={""}>
-                {$this->converter->convertToHtml($this->props->children)}
+            <div className={"mb-6"}>
+                {$props->children}
+                <a
+                    href={$props->uri}
+                    className={"mt-3 text-blue-dark"}
+                >
+                    {"Read more..."}
+                </a>
             </div>
         );
     }

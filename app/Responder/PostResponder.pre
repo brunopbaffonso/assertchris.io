@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Responder;
+
+use Aerys\Request;
+use Aerys\Response;
+use App\Component\LayoutComponent;
+
+use function App\render;
+use function App\getPost;
+
+class PostResponder
+{
+    public function __invoke(Request $request, Response $response, $params)
+    {
+        $post = await getPost($params["slug"]);
+
+        $response->end(
+            <LayoutComponent uri={$request->getUri()}>
+                <div className={"mt-4"}>
+                    {$post["bodyHtml"]}
+                </div>
+            </LayoutComponent>
+        );
+    }
+}

@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Responder;
+
+use Aerys\Request;
+use Aerys\Response;
+use App\Component\LayoutComponent;
+
+use function App\render;
+use function App\getRecentPosts;
+
+class FeedResponder
+{
+    public function __invoke(Request $request, Response $response)
+    {
+        $posts = await getRecentPosts();
+
+        $response
+            ->addHeader("Content-Type", "application/rss+xml")
+            ->end(
+                '<?xml version="1.0" encoding="utf-8" ?>'.
+                <rss version="2.0">
+                    <channel>
+                        <title>{"assertchris.io"}</title>
+                        <link>{"https://assertchris.io/feed"}</link>
+                        <description>{"Blog posts by Christopher Pitt"}</description>
+                        <language>{"English"}</language>
+                        <image>
+                            <title>{"Website logo"}</title>
+                            <url>{"https://assertchris.io"}</url>
+                            <link>{"[link-to-image]"}</link>
+                            <width>{"[image-width]"}</width>
+                            <height>{"[image-height]"}</height>
+                        </image>
+                        {array_map($post ~> $this->renderPost($post), $posts)}
+                    </channel>
+                </rss>
+            );
+    }
+
+    private function renderPost($post)
+    {
+        $intro = $post["content"]["introHtml"];
+        $intro = utf8_encode(htmlentities($intro, ENT_COMPAT, "utf-8"));
+
+        return (
+            <item>
+                <title>{$post["title"]}</title>
+                <link>{"https://assertchris.io/post/{$post["slug"]}"}</link>
+                <pubDate>{$post["date"]->format("D, d M Y H:i:s O")}</pubDate>
+                <description>{"<![CDATA[{$intro}]]>"}</description>
+            </item>
+        );
+    }
+}

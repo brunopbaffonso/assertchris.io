@@ -6,6 +6,8 @@ It’s customary, when launching a new ship, to smash a bottle of champagne over
 
 # Hello world
 
+> Published on 2018/10/22
+
 Similarly, it’s customary when launching a new blog, to publish a post entitled “hello world”. I guess it’s because most first programs involve the printing of these two words.
 
 Hello world.
