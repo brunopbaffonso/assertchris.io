@@ -7,7 +7,7 @@ use function Aerys\router;
 process .."/app/helpers.pre";
 
 $host = new Aerys\Host;
-$host->expose("127.0.0.1", 8888);
+$host->expose("127.0.0.1", 8889);
 
 $host->use($root = root(.."/public"));
 $host->use($router = router());
