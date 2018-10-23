@@ -4,6 +4,7 @@ namespace App;
 
 use Amp\Coroutine;
 
+use function Amp\File\get;
 use function Pre\Phpx\classMatching;
 use function Pre\Phpx\functionMatching;
 use function Pre\Phpx\Html\propsFrom;
@@ -13,17 +14,12 @@ use function Pre\Plugin\addMacro;
 function render($name, $props = null)
 {
     $namespaces = [
-        "global",
         "App\\Component",
-    ];
-
-    $ignoreNative = [
-        "link",
     ];
 
     $props = propsFrom($props);
 
-    if (!in_array($name, $ignoreNative) && ($function = functionMatching($namespaces, $name))) {
+    if ($function = functionMatching($namespaces, $name)) {
         return call_user_func($function, $props);
     }
 
@@ -38,4 +34,27 @@ function render($name, $props = null)
     }
 
     return renderHtml($name, $props);
+}
+
+async function post($slug)
+{
+    static $posts;
+
+    if (!$posts) {
+        $posts = [];
+    }
+
+    if (isset($posts[$slug])) {
+        return $posts[$slug];
+    }
+
+    $content = await get(.."/../posts/{$slug}.md");
+    $parts = explode("---", $content);
+
+    $posts[$slug] = {
+        "intro" => $parts[0],
+        "content" => $parts[1],
+    };
+
+    return $posts[$slug];
 }

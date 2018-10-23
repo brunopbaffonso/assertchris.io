@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39b74162175f59572ba7752c78ec00fc",
+    "content-hash": "6cd317d418497f4bc0d72a0ebaa5cfbb",
     "packages": [
         {
             "name": "amphp/aerys",
@@ -1093,6 +1093,43 @@
             "time": "2018-10-22T17:45:47+00:00"
         },
         {
+            "name": "pre/collections",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/preprocess/pre-collections.git",
+                "reference": "71ecc771a116c3957cdce5ce258e0501d564105b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/preprocess/pre-collections/zipball/71ecc771a116c3957cdce5ce258e0501d564105b",
+                "reference": "71ecc771a116c3957cdce5ce258e0501d564105b",
+                "shasum": ""
+            },
+            "require": {
+                "pre/plugin": "^0.11.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0|^6.0"
+            },
+            "type": "pre-macro",
+            "extra": {
+                "macros": [
+                    "source/macros.yay"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pre\\Collections\\": "source"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2018-10-08T16:07:52+00:00"
+        },
+        {
             "name": "pre/phpx",
             "version": "0.3.2",
             "source": {
@@ -1134,16 +1171,16 @@
         },
         {
             "name": "pre/phpx-html",
-            "version": "0.2.3",
+            "version": "0.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/preprocess/pre-phpx-html.git",
-                "reference": "9f86467129869411da1db1d4dfa0bf5b2a5b9e24"
+                "reference": "eeefce37d713e38a7aec3caf11ed7577502ee894"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/preprocess/pre-phpx-html/zipball/9f86467129869411da1db1d4dfa0bf5b2a5b9e24",
-                "reference": "9f86467129869411da1db1d4dfa0bf5b2a5b9e24",
+                "url": "https://api.github.com/repos/preprocess/pre-phpx-html/zipball/eeefce37d713e38a7aec3caf11ed7577502ee894",
+                "reference": "eeefce37d713e38a7aec3caf11ed7577502ee894",
                 "shasum": ""
             },
             "require": {
@@ -1165,7 +1202,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2018-10-22T15:24:22+00:00"
+            "time": "2018-10-23T05:27:03+00:00"
         },
         {
             "name": "pre/plugin",

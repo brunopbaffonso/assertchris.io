@@ -6,25 +6,44 @@ use Aerys\Request;
 use Aerys\Response;
 use App\Component\LayoutComponent;
 
-use function Amp\File\get;
 use function App\render;
+use function App\post;
 
 class HomeResponder
 {
-    async private function intro($post)
-    {
-        $content = await get(.."/../../posts/{$post}.md");
-        return explode("---", $content)[0];
-    }
-
     public function __invoke(Request $request, Response $response)
     {
-        $content = await $this->intro("2018-10-22-hello-world");
+        $posts = await $this->load();
 
         $response->end(
             <LayoutComponent uri={$request->getUri()}>
-                <PostIntroComponent markdown={$content} />
+                {array_map($post ~> $this->renderPost($post), $posts)}
             </LayoutComponent>
+        );
+    }
+
+    async private function load()
+    {
+        static $posts;
+
+        if (!$posts) {
+            $posts = [
+                {
+                    "slug" => "2018-10-22-hello-world",
+                    "content" => await post("2018-10-22-hello-world"),
+                },
+            ];
+        }
+
+        return $posts;
+    }
+
+    private function renderPost($post)
+    {
+        return (
+            <PostIntroComponent>
+                {$post->content->intro}
+            </PostIntroComponent>
         );
     }
 }

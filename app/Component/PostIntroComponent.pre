@@ -8,13 +8,20 @@ use function App\render;
 
 class PostIntroComponent
 {
-    public function __invoke($props)
-    {
-        $converter = new CommonMarkConverter();
+    private $props;
+    private $converter;
 
+    public function __construct($props)
+    {
+        $this->props = $props;
+        $this->converter = new CommonMarkConverter();
+    }
+
+    public function render()
+    {
         return (
             <div className={""}>
-                {$converter->convertToHtml($props->markdown)}
+                {$this->converter->convertToHtml($this->props->children)}
             </div>
         );
     }

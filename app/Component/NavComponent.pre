@@ -16,7 +16,7 @@ class NavComponent
     public function render()
     {
         return (
-            <nav className={"flex items-center justify-start flex-wrap px-3"}>
+            <nav className={"flex items-center justify-start flex-wrap p-3"}>
                 {$this->renderLink("/", "home")}
                 {$this->renderLink("/books", "books")}
                 {$this->renderLink("/talks", "talks")}
@@ -32,7 +32,7 @@ class NavComponent
         return (
             <a
                 className={[
-                    "py-6 px-3",
+                    "py-3 px-3",
                     $isActive ? "text-blue-light" : "text-blue-dark"
                 ]}
                 href={$href}

@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Component;
+
+use function App\render;
+
+class HeaderComponent
+{
+    public function __invoke($props)
+    {
+        return (
+            <header className={"flex flex-col"}>
+                {$props->children}
+            </header>
+        );
+    }
+}

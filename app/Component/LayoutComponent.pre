@@ -11,14 +11,20 @@ class LayoutComponent
         return (
             <html lang={"en"}>
                 <head>
+                    <meta charset={"utf-8"} />
+                    <meta httpEquiv={"X-UA-Compatible"} content={"IE=edge"} />
+                    <meta name={"viewport"} content={"width=device-width, initial-scale=1"} />
                     <link rel={"stylesheet"} href={"/app.css"} />
                 </head>
                 <body className={"font-serif text-grey-darkest"}>
-                    <div className={"container mx-auto"}>
-                        <NavComponent uri={$props->uri} />
-                        <div className={"m-6"}>
+                    <div className={"container mx-auto w-full md:max-w-lg min-h-screen flex flex-col"}>
+                        <HeaderComponent>
+                            <NavComponent uri={$props->uri} />
+                        </HeaderComponent>
+                        <ContentComponent>
                             {$props->children}
-                        </div>
+                        </ContentComponent>
+                        <FooterComponent />
                     </div>
                 </body>
             </html>

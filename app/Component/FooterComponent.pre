@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Component;
+
+use function App\render;
+
+class FooterComponent
+{
+    public function __invoke($props)
+    {
+        return (
+            <footer className={"flex flex-row items-center justify-center flex-wrap p-3"}>
+                {$this->renderLink("https://twitter.com/assertchris", "twitter")}
+                {$this->renderLink("https://github.com/assertchris", "github")}
+            </footer>
+        );
+    }
+
+    private function renderLink($href, $label)
+    {
+        return (
+            <a
+                className={"py-3 px-3 text-blue-dark"}
+                href={$href}
+            >
+                {$label}
+            </a>
+        );
+    }
+}

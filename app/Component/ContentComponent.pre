@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Component;
+
+use function App\render;
+
+class ContentComponent
+{
+    public function __invoke($props)
+    {
+        return (
+            <div className={"flex flex-grow flex-col mx-6 self-stretch"}>
+                {$props->children}
+            </div>
+        );
+    }
+}
