@@ -1,5 +1,7 @@
 ## Hello world
 
+> Published on 2018/10/22
+
 It’s customary, when launching a new ship, to smash a bottle of champagne over the bow. Apparently the wasted bottle is meant to invite good luck. Perhaps it’s because there will be less alcohol for the captain to drink on that first voyage…
 
 ---
