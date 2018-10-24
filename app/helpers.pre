@@ -3,15 +3,11 @@
 namespace App;
 
 use Amp\Coroutine;
-use Carbon\Carbon;
-use League\CommonMark\CommonMarkConverter;
 
-use function Amp\File\get;
 use function Pre\Phpx\classMatching;
 use function Pre\Phpx\functionMatching;
 use function Pre\Phpx\Html\propsFrom;
 use function Pre\Phpx\Html\render as renderHtml;
-use function Pre\Plugin\addMacro;
 
 function render($name, $props = null)
 {
@@ -38,56 +34,30 @@ function render($name, $props = null)
     return renderHtml($name, $props);
 }
 
-async function getPost($slug)
+function startsWith($haystack, $needle)
 {
-    static $posts;
-
-    if (!$posts) {
-        $posts = [];
-    }
-
-    if (isset($posts[$slug])) {
-        return $posts[$slug];
-    }
-
-    $content = await get(.."/../posts/{$slug}.md");
-    $parts = explode("---", $content);
-
-    $posts[$slug] = [
-        "intro" => $parts[0],
-        "introHtml" => getMarkupFromMarkdown($parts[0]),
-        "body" => $parts[1],
-        "bodyHtml" => getMarkupFromMarkdown($parts[1]),
-    ];
-
-    return $posts[$slug];
+     $length = strlen($needle);
+     return (substr($haystack, 0, $length) === $needle);
 }
 
-function getMarkupFromMarkdown($markdown)
+function endsWith($haystack, $needle)
 {
-    static $converter;
-
-    if (!$converter) {
-        $converter = new CommonMarkConverter();
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
     }
 
-    return $converter->convertToHtml($markdown);
+    return (substr($haystack, -$length) === $needle);
 }
 
-async function getRecentPosts()
+function sortAscending($items)
 {
-    static $posts;
+    $clone = (array) $items;
+    sort($clone, SORT_NATURAL);
+    return $clone;
+}
 
-    if (!$posts) {
-        $posts = [
-            [
-                "slug" => "2018-10-22-hello-world",
-                "date" => new Carbon("2018-10-22"),
-                "title" => "Hello world",
-                "content" => await getPost("2018-10-22-hello-world"),
-            ],
-        ];
-    }
-
-    return $posts;
+function sortDescending($items)
+{
+    return array_reverse(sortAscending($items));
 }

@@ -5,15 +5,15 @@ namespace App\Responder;
 use Aerys\Request;
 use Aerys\Response;
 use App\Component\LayoutComponent;
+use App\Model\Post;
 
 use function App\render;
-use function App\getRecentPosts;
 
 class HomeResponder
 {
     public function __invoke(Request $request, Response $response)
     {
-        $posts = await getRecentPosts();
+        $posts = await Post::recent();
 
         $response->end(
             <LayoutComponent uri={$request->getUri()} showLargeHeader={true}>
@@ -28,8 +28,13 @@ class HomeResponder
     private function renderPost($post)
     {
         return (
-            <PostIntroComponent uri={"/post/{$post["slug"]}"}>
-                {$post["content"]["introHtml"]}
+            <PostIntroComponent
+                slug={$post->slug}
+                date={$post->date}
+                title={$post->title}
+                uri={"/post/{$post->slug}"}
+            >
+                {$post->introMarkup}
             </PostIntroComponent>
         );
     }

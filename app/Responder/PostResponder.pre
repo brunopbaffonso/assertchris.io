@@ -5,21 +5,26 @@ namespace App\Responder;
 use Aerys\Request;
 use Aerys\Response;
 use App\Component\LayoutComponent;
+use App\Model\Post;
 
 use function App\render;
-use function App\getPost;
 
 class PostResponder
 {
     public function __invoke(Request $request, Response $response, $params)
     {
-        $post = await getPost($params["slug"]);
+        $post = await Post::find($params["slug"]);
 
         $response->end(
             <LayoutComponent uri={$request->getUri()}>
-                <div className={"mt-4"}>
-                    {$post["bodyHtml"]}
-                </div>
+                <PostComponent
+                    slug={$post->slug}
+                    date={$post->date}
+                    title={$post->title}
+                    
+                >
+                    {$post->bodyMarkup}
+                </PostComponent>
             </LayoutComponent>
         );
     }

@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Model;
+
+use Carbon\Carbon;
+use League\CommonMark\CommonMarkConverter;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+
+use function Amp\File\scandir;
+use function Amp\File\get;
+use function App\endsWith;
+use function App\sortDescending;
+
+class Post
+{
+    private $data = [];
+
+    private function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    public function __get($key)
+    {
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+        
+        return null;
+    }
+
+    public function __set($key, $value)
+    {
+        $this->data[$key] = $value;
+    }
+
+    async public static function recent()
+    {
+        static $posts;
+
+        if (!$posts) {
+            $posts = [];
+
+            $files = await scandir(.."/../../posts");
+            $files = array_filter($files, $file ~> endsWith($file, ".md"));
+            $files = array_map($file ~> substr($file, 0, strlen($file) - 3), $files);
+            $files = array_slice(sortDescending($files), 0, 3);
+
+            foreach ($files as $file) {
+                array_push($posts, await static::find($file));
+            }
+        }
+    
+        return $posts;
+    }
+
+    async public static function find($slug)
+    {
+        static $posts;
+
+        if (!$posts) {
+            $posts = [];
+        }
+
+        if (!isset($posts[$slug])) {
+            $posts[$slug] = static::hydrate(
+                await get(.."/../../posts/{$slug}.md")
+            );
+        }
+
+        return $posts[$slug];
+    }
+
+    private static function hydrate($content)
+    {
+        static $converter;
+
+        if (!$converter) {
+            $converter = new CommonMarkConverter();
+        }
+
+        $document = YamlFrontMatter::parse($content);
+
+        $intro = $document->intro;
+        $body = $document->body();
+
+        return new static([
+            "slug" => $document->slug,
+            "date" => new Carbon($document->date),
+            "title" => $document->title,
+            "introMarkdown" => $intro,
+            "introMarkup" => $converter->convertToHtml($intro),
+            "bodyMarkdown" => $body,
+            "bodyMarkup" => $converter->convertToHtml($body),
+        ]);
+    }
+}

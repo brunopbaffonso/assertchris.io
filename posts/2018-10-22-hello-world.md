@@ -1,14 +1,9 @@
-## Hello world
-
-> Published on 2018/10/22
-
-It’s customary, when launching a new ship, to smash a bottle of champagne over the bow. Apparently the wasted bottle is meant to invite good luck. Perhaps it’s because there will be less alcohol for the captain to drink on that first voyage…
-
 ---
-
-# Hello world
-
-> Published on 2018/10/22
+slug: 2018-10-22-hello-world
+date: 2018/10/22
+title: Hello world
+intro: It’s customary, when launching a new ship, to smash a bottle of champagne over the bow. Apparently the wasted bottle is meant to invite good luck. Perhaps it’s because there will be less alcohol for the captain to drink on that first voyage…
+---
 
 It’s customary, when launching a new ship, to smash a bottle of champagne over the bow. Apparently the wasted bottle is meant to invite good luck. Perhaps it’s because there will be less alcohol for the captain to drink on that first voyage…
 

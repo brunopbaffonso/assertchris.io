@@ -27,13 +27,7 @@ class NavComponent
         $isActive = $href === $this->props->uri;
 
         return (
-            <a
-                className={[
-                    "pt-4 pb-3 px-3",
-                    $isActive ? "text-blue-light" : "text-blue-dark"
-                ]}
-                href={$href}
-            >
+            <a href={$href} className={["pt-4 pb-3 px-3", $isActive ? "text-blue-light" : "text-blue-dark" ]}>
                 {$label}
             </a>
         );

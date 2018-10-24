@@ -4,18 +4,15 @@ namespace App\Component;
 
 use function App\render;
 
-class PostIntroComponent
+class PostComponent
 {
     public function __invoke($props)
     {
         return (
-            <div className={"mb-6"}>
-                <h2>{$props->title}</h2>
+            <div className={"mt-4"}>
+                <h1>{$props->title}</h1>
                 <blockquote>{"Published on " . $props->date->format("Y-m-d")}</blockquote>
                 {$props->children}
-                <a href={$props->uri} className={"mt-3 text-blue-dark"}>
-                    {"Read more..."}
-                </a>
             </div>
         );
     }
