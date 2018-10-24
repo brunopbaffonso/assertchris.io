@@ -43,7 +43,7 @@ class Post
 
             $files = await scandir(.."/../../posts");
             $files = array_filter($files, $file ~> endsWith($file, ".md"));
-            $files = array_map($file ~> substr($file, 0, strlen($file) - 3), $files);
+            $files = array_map($file ~> { return substr($file, 0, strlen($file) - 3); }, $files);
             $files = array_slice(sortDescending($files), 0, 3);
 
             foreach ($files as $file) {
