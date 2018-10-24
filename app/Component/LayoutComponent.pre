@@ -24,7 +24,6 @@ class LayoutComponent
                         <HeaderComponent showLargeHeader={$showLargeHeader}>
                             <NavComponent uri={$props->uri} />
                         </HeaderComponent>
-                        <hr />
                         <ContentComponent>
                             {$props->children}
                         </ContentComponent>
