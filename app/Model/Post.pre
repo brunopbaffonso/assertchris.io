@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Carbon\Carbon;
+use Exception;
 use League\CommonMark\CommonMarkConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -62,10 +63,15 @@ class Post
             $posts = [];
         }
 
+        $base = realpath(.."/../../posts");
+        $file = realpath(.."/../../posts/{$slug}.md");
+
+        if (!$slug || strncmp($file, $base, strlen($base)) !== 0) {
+            throw new Exception("Nope");
+        }
+
         if (!isset($posts[$slug])) {
-            $posts[$slug] = static::hydrate(
-                await get(.."/../../posts/{$slug}.md")
-            );
+            $posts[$slug] = static::hydrate(await get($file));
         }
 
         return $posts[$slug];
