@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Amp\Coroutine;
-
 use function Pre\Phpx\classMatching;
 use function Pre\Phpx\functionMatching;
 use function Pre\Phpx\Html\propsFrom;
