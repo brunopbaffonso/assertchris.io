@@ -63,14 +63,14 @@ class Post
             $posts = [];
         }
 
-        $base = realpath(.."/../../posts");
-        $file = realpath(.."/../../posts/{$slug}.md");
-
-        if (!$slug || strncmp($file, $base, strlen($base)) !== 0) {
-            throw new Exception("Nope");
-        }
-
         if (!isset($posts[$slug])) {
+            $base = realpath(.."/../../posts");
+            $file = realpath(.."/../../posts/{$slug}.md");
+
+            if (!$slug || strncmp($file, $base, strlen($base)) !== 0) {
+                throw new Exception("Nope");
+            }
+
             $posts[$slug] = static::hydrate(await get($file));
         }
 

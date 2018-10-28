@@ -1,9 +1,12 @@
 ---
-slug: 2018-10-24-building-something-new
-date: 2018/10/24
-title: Building something new
-intro: I’ve been building this blog, for a few days now, and it’s been a fun experience. This is partly because it’s an asynchronous application, and partly because it uses /a lot/ of preprocessing.
+slug: "2018-10-24-building-something-new"
+date: "2018/10/24"
+title: "Building a blog: Introduction"
+intro: "I’ve been building this blog, for a few days now, and it’s been a fun experience. This is partly because it’s an asynchronous application, and partly because it uses _a lot_ of preprocessing."
 ---
+
+-   Part 1: introduction
+-   [Part 2: posts](/post/2018-10-28-building-a-blog-posts)
 
 I’ve been building this blog, for a few days now, and it’s been a fun experience. This is partly because it’s an asynchronous application, and partly because it uses _a lot_ of preprocessing.
 
