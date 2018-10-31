@@ -33,15 +33,15 @@ class FeedResponder
 
     private function renderPost($post)
     {
-        $intro = $post->introMarkdown;
-        $intro = utf8_encode(htmlentities($intro, ENT_COMPAT, "utf-8"));
+        $body = $post->bodyMarkdown;
+        $body = utf8_encode(htmlentities($body, ENT_COMPAT, "utf-8"));
 
         return (
             <item>
                 <title>{$post->title}</title>
                 <link>{"https://assertchris.io/post/{$post->slug}"}</link>
                 <pubDate>{$post->date->format("D, d M Y H:i:s O")}</pubDate>
-                <description>{"<![CDATA[{$intro}]]>"}</description>
+                <description>{"<![CDATA[{$body}]]>"}</description>
             </item>
         );
     }
