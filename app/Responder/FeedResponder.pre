@@ -33,7 +33,7 @@ class FeedResponder
 
     private function renderPost($post)
     {
-        $intro = $post->introMarkup;
+        $intro = $post->introMarkdown;
         $intro = utf8_encode(htmlentities($intro, ENT_COMPAT, "utf-8"));
 
         return (

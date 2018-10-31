@@ -18,7 +18,7 @@ class LayoutComponent
                     <meta httpEquiv={"X-UA-Compatible"} content={"IE=edge"} />
                     <meta name={"viewport"} content={"width=device-width, initial-scale=1"} />
                     <link rel={"stylesheet"} href={"/app.css"} />
-                    <link rel={"stylesheet"} href={"/prism-ghcolors.css"} />
+                    <link rel={"stylesheet"} href={"/prism.css"} />
                 </head>
                 <body className={"font-serif text-grey-darkest leading-normal"}>
                     <div className={"container mx-auto w-full md:max-w-lg min-h-screen flex flex-col"}>
